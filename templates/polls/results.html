@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <fieldset>
+        <legend><h1>{{ q.question_text }}</h1></legend>
+        {% for choice in q.choice_set.all %}
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}- {{choice.votes}}</label><br>
+        {% endfor %}
+    </fieldset>
+    
+    <a href="{% url 'polls:detail' q.id %}">vote again</a>
+    
+    {% endblock content %}
+
+    {% block extra_css %} included extraaaa css {% endblock extra_css %}

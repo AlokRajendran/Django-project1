@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+{# <h1>{{q.question_text}}</h1> #}
+
+{% comment %}
+<ul>
+    {% for choice in q.choice_set.all %}
+    <li>{{choice.choice_text}}</li>
+    {% endfor %}
+</ul>
+{% endcomment %}
+
+
+{% lorem 2 random %}
+<br>
+<br>
+{% now "DATE_FORMAT" %}
+<br>
+<br>
+{% now "DATETIME_FORMAT" %}
+<br>
+<br>
+{% now "Y" %}
+<br>
+<br>
+{% now "M" %}
+<br>
+<br>
+{% now "H" %}
+<br>
+<br>
+{% now "d" %}
+<br>
+<br>
+{% now "m" %}
+
+
+<form action="{% url 'polls:vote' q.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>{{ q.question_text }}</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        {% for choice in q.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        {% endfor %}
+    </fieldset>
+    <input class="btn" type="submit" value="Vote">
+    </form>
+
+{% endblock %}
